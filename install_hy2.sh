@@ -131,11 +131,14 @@ echo -e "Аккаунты:\n${USER_INFO%\\n}"
 echo "Публичный сертификат: /etc/hysteria/server.crt"
 echo "Конфиг сервера:       /etc/hysteria/config.yaml"
 
-echo -e "\nСсылки для подключения:"
+echo -e "\nСсылки и QR-коды для подключения:"
 i=1
 while read -r line; do
     U=$(echo "$line" | awk '{print $2}')
     P=$(echo "$line" | awk '{print $4}')
-    echo "  $i) hy2://${U}:${P}@${SERVER_IP}:${RANDOM_PORT}?sni=${SITE}&insecure=1"
+    LINK="hy2://${U}:${P}@${SERVER_IP}:${RANDOM_PORT}?sni=${SITE}&insecure=1"
+    echo "  $i) $LINK"
+    qrencode -t ANSIUTF8 "$LINK"
     ((i++))
 done <<< "$(echo -e "${USER_INFO%\\n}")"
+
