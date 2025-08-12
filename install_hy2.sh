@@ -122,9 +122,20 @@ EOF
 systemctl daemon-reload
 systemctl enable --now hysteria-server.service
 
+SERVER_IP=$(hostname -I | awk '{print $1}')
+SITE="google.com"  # Можно поменять при необходимости
+
 echo -e "\n-------------------- ГОТОВО --------------------"
 echo "Hysteria 2 запущена и слушает порт ${RANDOM_PORT}"
-# Убираем последний перевод строки из USER_INFO для красивого вывода
 echo -e "Аккаунты:\n${USER_INFO%\\n}"
 echo "Публичный сертификат: /etc/hysteria/server.crt"
 echo "Конфиг сервера:       /etc/hysteria/config.yaml"
+
+echo -e "\nСсылки для подключения:"
+i=1
+while read -r line; do
+    U=$(echo "$line" | awk '{print $2}')
+    P=$(echo "$line" | awk '{print $4}')
+    echo "  $i) hy2://${U}:${P}@${SERVER_IP}:${RANDOM_PORT}?sni=${SITE}&insecure=1"
+    ((i++))
+done <<< "$(echo -e "${USER_INFO%\\n}")"
