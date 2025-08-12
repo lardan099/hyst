@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# ---------- install_hy2.sh – Установка Hysteria 2 (ФИНАЛЬНАЯ ВЕРСИЯ 2.0) ----------
+# ---------- install_hy2.sh – Установка Hysteria 2  ----------
 
 set -euo pipefail
 
