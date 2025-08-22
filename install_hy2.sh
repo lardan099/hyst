@@ -39,9 +39,9 @@ RANDOM_PORT=$(find_free_port)
 echo "Выбран порт: $RANDOM_PORT"
 
 echo "--- Шаг 5: Запрос количества пользователей ---"
-read -rp "Сколько пользовательских конфигураций создать? (1-10): " USER_COUNT
-if ! [[ $USER_COUNT =~ ^([1-9]|10)$ ]]; then
-    echo "Ошибка: введите число от 1 до 10."
+read -rp "Сколько пользовательских конфигураций создать? (1-100): " USER_COUNT
+if ! [[ $USER_COUNT =~ ^[0-9]+$ ]] || [ "$USER_COUNT" -lt 1 ] || [ "$USER_COUNT" -gt 100 ]; then
+    echo "Ошибка: введите число от 1 до 100."
     exit 1
 fi
 
@@ -123,7 +123,7 @@ systemctl daemon-reload
 systemctl enable --now hysteria-server.service
 
 SERVER_IP=$(hostname -I | awk '{print $1}')
-SITE="tap-go.ru"  # Можно поменять при необходимости
+SITE="google.com"  # Можно поменять при необходимости
 
 echo -e "\n-------------------- ГОТОВО --------------------"
 echo "Hysteria 2 запущена и слушает порт ${RANDOM_PORT}"
