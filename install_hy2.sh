@@ -123,7 +123,7 @@ systemctl daemon-reload
 systemctl enable --now hysteria-server.service
 
 SERVER_IP=$(hostname -I | awk '{print $1}')
-SITE="google.com"  # Можно поменять при необходимости
+SITE="tap-go.ru"  # Можно поменять при необходимости
 
 echo -e "\n-------------------- ГОТОВО --------------------"
 echo "Hysteria 2 запущена и слушает порт ${RANDOM_PORT}"
